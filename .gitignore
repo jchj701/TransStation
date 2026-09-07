@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# 构建产物
+build/
+dist/
+
+# 运行时数据（便携目录，运行时自动生成）
+data/
+.data_dir.json
+
+# 开发杂项
+.pytest_cache/
+*.log
