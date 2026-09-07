@@ -10,9 +10,12 @@
 
 ## 快速开始
 
-**获取程序**：优先从 GitHub [Releases](https://github.com/jchj701/TransStation/releases)
-下载最新 `TransStation.exe`（页面同时提供 SHA256 校验值，可用
-`certutil -hashfile TransStation.exe SHA256` 核对）。也可自行构建，见文末“开发者信息”。
+**获取程序**：
+- 首选：GitHub [Releases](https://github.com/jchj701/TransStation/releases) 页面下载最新版；
+- 或直接下载仓库内发布目录：[release/v0.1.0/TransStation-v0.1.0.exe](release/v0.1.0/TransStation-v0.1.0.exe)；
+- 校验：下载后核对 SHA256（与 exe 同目录 `SHA256.txt` 一致），Windows 下执行
+  `certutil -hashfile TransStation-v0.1.0.exe SHA256` 比对；
+- 自行构建：见文末“开发者信息”。
 
 1. 把 `TransStation.exe` 放到任意位置（桌面、U 盘都行），**双击启动**；
 2. 程序驻留系统托盘（右下角图标），无主窗口；
