@@ -1,8 +1,10 @@
 # TransStation 开发协作规范（给 AI 与协作者）
 
 ## 提交规范（硬性）
-- 本项目为**本地 git 仓库**，无远程。每个“任务变更”完成并自测后必须提交：
-  `git add <相关文件>` + `git commit -m "<一句话清晰描述>"`。
+- 项目为 **git 仓库，远端 GitHub：jchj701/TransStation**（走 SSH 443 通道：
+  `ssh://git@ssh.github.com:443/jchj701/TransStation.git`，本机 22 端口被墙、
+  需用 443；认证用 SSH 密钥，已注册）。每个“任务变更”完成并自测后必须提交并推送：
+  `git add <相关文件>` + `git commit -m "<一句话清晰描述>"` + `git push`。
 - message 用中文，动词开头、说清“改了什么/为什么”，如：
   `修复热键长按导致面板跟手闪烁（去抖+拖拽中保持）`
 - 禁止提交：`data/`、`dist/`、`build/`、`__pycache__/`、`*.log`、`.pytest_cache/`、`.zcode/`。
