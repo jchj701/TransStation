@@ -11,6 +11,9 @@ dist/
 data/
 .data_dir.json
 
+# 工作区内部文件（严禁入库）
+.zcode/
+
 # 开发杂项
 .pytest_cache/
 *.log
