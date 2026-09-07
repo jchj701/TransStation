@@ -10,6 +10,10 @@
 
 ## 快速开始
 
+**获取程序**：优先从 GitHub [Releases](https://github.com/jchj701/TransStation/releases)
+下载最新 `TransStation.exe`（页面同时提供 SHA256 校验值，可用
+`certutil -hashfile TransStation.exe SHA256` 核对）。也可自行构建，见文末“开发者信息”。
+
 1. 把 `TransStation.exe` 放到任意位置（桌面、U 盘都行），**双击启动**；
 2. 程序驻留系统托盘（右下角图标），无主窗口；
 3. 在任意应用里按住内容拖动，途中按 **`Ctrl+Alt+T`**，面板出现在鼠标旁；

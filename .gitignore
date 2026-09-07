@@ -17,3 +17,6 @@ data/
 # 开发杂项
 .pytest_cache/
 *.log
+
+# 发布产物（v* 目录含 exe 与校验值，不入库；上传到 GitHub Releases）
+releases/
