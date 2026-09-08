@@ -16,6 +16,14 @@ import sys
 import time
 from pathlib import Path
 
+# CI（pwsh/cp1252 控制台）等非 UTF-8 环境下，中文 print 会 UnicodeEncodeError；
+# 统一按 UTF-8 重配置标准流，任何平台都不会因控制台代码页崩溃
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
 ROOT = Path(__file__).resolve().parent.parent
 APP_NAME = "TransStation"
 OUT_DIR = ROOT / "dist" / APP_NAME
