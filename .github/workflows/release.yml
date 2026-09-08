@@ -1,0 +1,56 @@
+# 发布流水线：推送 v* 标签 → Windows 上构建单文件 exe → 创建 GitHub Release 并挂附件
+# 全程使用 CI 自带 GITHUB_TOKEN，无需任何个人令牌。用法：git tag -a vX.Y.Z -m "…" && git push origin vX.Y.Z
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: 安装构建依赖
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt pyinstaller
+
+      - name: 构建单文件 exe（含自绘 SVG 等全部资源）
+        run: python tools/build_portable.py
+
+      - name: 组装发布产物（exe + SHA256）
+        shell: pwsh
+        run: |
+          $tag = $env:GITHUB_REF_NAME
+          New-Item -ItemType Directory -Force artifact | Out-Null
+          Copy-Item dist/TransStation/TransStation.exe "artifact/TransStation-$tag.exe"
+          $hash = (Get-FileHash "artifact/TransStation-$tag.exe" -Algorithm SHA256).Hash.ToLower()
+          Set-Content -Path "artifact/SHA256.txt" -Value $hash -Encoding ascii
+          # Release 说明：优先用注解标签的一句话描述
+          $subj = git tag -l --format="%(contents:subject)" $tag
+          $notes = @()
+          if ($subj) { $notes += $subj }
+          $notes += ""
+          $notes += "SHA256: $hash"
+          $notes += "校验：certutil -hashfile TransStation-$tag.exe SHA256"
+          $notes | Set-Content -Path release-notes.md -Encoding utf8
+
+      - name: 创建 GitHub Release 并上传附件
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$env:GITHUB_REF_NAME" artifact/TransStation-$env:GITHUB_REF_NAME.exe artifact/SHA256.txt `
+            --title "TransStation $env:GITHUB_REF_NAME" `
+            --notes-file release-notes.md

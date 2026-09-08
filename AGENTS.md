@@ -21,6 +21,8 @@ python -m pytest tests -q          # 纯逻辑单元测试
 python tools/e2e_drag_test.py file # 真机端到端拖放（真实鼠标注入，勿在用户工作时段随意跑）
 python tools/visual_preview.py     # 视觉预览（真机弹窗截图用）
 python tools/build_portable.py     # 打便携包（单文件 exe + data/，重建自动保留 data）
+# 发布：推送 v* 标签即触发 GitHub Actions 自动构建并创建 Release 附件（无需本地令牌）
+git tag -a v0.1.1 -m "一句话发布说明" && git push origin v0.1.1
 ```
 
 ## 架构速览
